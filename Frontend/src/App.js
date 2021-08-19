@@ -11,7 +11,6 @@ function App() {
 
   useEffect(()=>{
     api.get('/repositories').then(response=>{
-      console.log(response.data)
       setRepositories(response.data);
     })
   },[])
