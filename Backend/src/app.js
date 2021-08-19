@@ -77,7 +77,19 @@ app.put("/repositories/:id",verifyID, (request, response) => {
 });
 
 app.delete("/repositories/:id",verifyID, (request, response) => {
-  // TODO
+  const {id} = request.params;
+
+  const repositorieIndex= repositories.findIndex(repositorie=> repositorie.id === id);
+  
+  if ( repositorieIndex < 0 ){
+    return response.status(400).json({
+      error:"Repositorie Not Found"
+    })
+  }
+  
+  repositories.splice(repositorieIndex,1);
+  
+  return response.json({message: "Repositorie Deleted"})
 });
 
 app.post("/repositories/:id/like",verifyID, (request, response) => {
