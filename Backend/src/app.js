@@ -15,26 +15,45 @@ app.use(cors());
 const repositories = [];
 
 //middlewares
+function verifyID(request,response,next){
+  const {id} = request.params;
 
+  if(!validate(id)){
+    return response.status(400).json({message:"invalid id"});
+  }
+  return next();
+}
 
 //routes
 app.get("/repositories", (request, response) => {
-  // TODO
+  return response.json(repositories);
 });
 
 app.post("/repositories", (request, response) => {
+  const { title, url,techs } = request.body;
+
+  const repositorie = {
+    id:v4(),
+    title,
+    url,
+    techs,
+    likes:0,
+  }
+  
+  repositories.push(repositorie);
+
+  return response.json(repositorie);
+});
+
+app.put("/repositories/:id",verifyID, (request, response) => {
   // TODO
 });
 
-app.put("/repositories/:id", (request, response) => {
+app.delete("/repositories/:id",verifyID, (request, response) => {
   // TODO
 });
 
-app.delete("/repositories/:id", (request, response) => {
-  // TODO
-});
-
-app.post("/repositories/:id/like", (request, response) => {
+app.post("/repositories/:id/like",verifyID, (request, response) => {
   // TODO
 });
 
