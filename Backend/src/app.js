@@ -89,7 +89,7 @@ app.delete("/repositories/:id",verifyID, (request, response) => {
   
   repositories.splice(repositorieIndex,1);
   
-  return response.json({message: "Repositorie Deleted"})
+  return response.status(204).json()
 });
 
 app.post("/repositories/:id/like",verifyID, (request, response) => {
@@ -105,10 +105,7 @@ app.post("/repositories/:id/like",verifyID, (request, response) => {
 
   repositories[repositorieIndex].likes = repositories[repositorieIndex].likes+1;
 
-  return response.json({
-    Message:"Likes Updated",
-    Repositorie:repositories[repositorieIndex]
-  });
+  return response.json(repositories[repositorieIndex]);
 });
 
 module.exports = app;
