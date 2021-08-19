@@ -17,7 +17,14 @@ function App() {
   },[])
 
   async function handleAddRepository() {
-    // TODO
+    const response = await api.post('repositories',{
+      "title":`Dev ${Date.now()}`,
+      "url":"https://github.com/LuPeBreak/Desafio-nivel-01-Gostack-2020",
+      "techs":["nodeJS","Javascript","express"]
+    });
+    const repositorie = response.data;
+    
+    setRepositories([...repositories,repositorie]);
   }
 
   async function handleRemoveRepository(id) {
